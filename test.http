@@ -1,0 +1,10 @@
+POST http://localhost:3000/api/room/newRoom
+Content-Type: application/json
+
+{
+  "number": "101",
+  "type": "single",
+  "price": 100,
+  "status": "available",
+  "features": ["WiFi", "TV", "Air Conditioning"]
+}
