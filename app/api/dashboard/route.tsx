@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../utils/db";
 import Reservation from "../models/reservation";
-import { authenticate } from "../../middleware/auth";
+import { authenticate } from "../middleware/auth";
 
 // ✅ Fix: Use named export for GET method
 export async function GET(req) {

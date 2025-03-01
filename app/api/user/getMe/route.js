@@ -1,4 +1,4 @@
-import { authenticate } from "../../../middleware/auth";
+import { authenticate } from "../../middleware/auth";
 import connectDB from "../../../utils/db";
 import User from "../../models/User";
 import { NextResponse } from "next/server";

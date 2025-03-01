@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
 
 export default function StaffManagement() {
   const router = useRouter();
@@ -32,12 +33,10 @@ export default function StaffManagement() {
   const fetchStaffList = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/staff/getAll`);
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to fetch staff list");
+      const { data } = await axios.get("/api/staff/getAll");
       setStaffList(data);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || "Failed to fetch staff list");
     } finally {
       setLoading(false);
     }
@@ -46,12 +45,10 @@ export default function StaffManagement() {
   const fetchStaff = async (staffId) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/staff/${staffId}`);
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to fetch staff details");
+      const { data } = await axios.get(`/api/staff/${staffId}`);
       setStaff(data);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || "Failed to fetch staff details");
     } finally {
       setLoading(false);
     }
@@ -61,12 +58,10 @@ export default function StaffManagement() {
     if (!confirm("Are you sure you want to delete this staff member?")) return;
     setLoading(true);
     try {
-      const response = await fetch(`/api/staff/remove/${staffId}`, { method: "DELETE" });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to delete staff");
+      await axios.delete(`/api/staff/remove/${staffId}`);
       fetchStaffList();
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || "Failed to delete staff");
     } finally {
       setLoading(false);
     }
@@ -75,16 +70,10 @@ export default function StaffManagement() {
   const updateStaff = async (staffId, updates) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/staff/update/${staffId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updates),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to update staff");
+      await axios.put(`/api/staff/update/${staffId}`, updates);
       fetchStaffList();
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || "Failed to update staff");
     } finally {
       setLoading(false);
     }
@@ -98,18 +87,12 @@ export default function StaffManagement() {
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/staff`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newStaff),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to add staff");
+      await axios.post(`/api/staff`, newStaff);
       fetchStaffList();
       setNewStaff({ name: "", email: "", phone: "", role: "", status: "active" });
       setError(null);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.error || "Failed to add staff");
     } finally {
       setLoading(false);
     }

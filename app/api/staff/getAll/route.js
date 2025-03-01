@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"; // ✅ Import NextResponse
 import connectDB from "../../../utils/db";
 import Staff from "../../models/staff";
-import { authenticate } from "../../../middleware/auth";
+import { authenticate } from "../../middleware/auth";
 
 export async function GET(req) {
   try {

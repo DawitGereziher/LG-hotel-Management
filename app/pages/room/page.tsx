@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Input } from "../../components/input";
-import { Button } from "../../components/button";
-import { CardContent, card } from "../../components/Card";
+import { Input } from "../../../components/input";
+import { Button } from "../../../components/button";
+import { CardContent, card } from "../../../components/Card";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 

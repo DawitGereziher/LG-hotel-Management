@@ -1,6 +1,6 @@
 import connectDB from "../../../utils/db";
 import Staff from "../../models/Staff";
-import { authenticate } from "../../../middleware/auth";
+import { authenticate } from "../../middleware/auth";
 import { NextResponse } from "next/server";
 
 

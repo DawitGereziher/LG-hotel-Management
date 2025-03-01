@@ -1,7 +1,7 @@
 import connectDB from "../../../utils/db";
 import Reservation from "../../models/reservation";
 import Room from "../../models/room";
-import { authenticate } from "../../../middleware/auth";
+import { authenticate } from "../../middleware/auth";
 import { NextResponse } from "next/server";
 export async function PUT(req) {
   try {

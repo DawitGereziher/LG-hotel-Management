@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../utils/db";
 import Room from "../../models/room";
-import { authenticate } from "../../../middleware/auth";
+import { authenticate } from "../../middleware/auth";
 
 export async function DELETE(req) {
   try {

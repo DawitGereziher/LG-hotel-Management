@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../utils/db";
 import Staff from "../../models/staff";
-import { authenticateAdmin } from "../../../middleware/auth";
+import { authenticateAdmin } from "../../middleware/auth";
 
 export async function GET(req, { params }) {
   try {

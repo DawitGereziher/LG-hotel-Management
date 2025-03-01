@@ -2,7 +2,7 @@ import connectDB from "../../../utils/db";
 import { NextResponse } from "next/server";
 import Reservation from "../../models/reservation";
 import Room from "../../models/room";
-import { authenticate } from "../../../middleware/auth";
+import { authenticate } from "../../middleware/auth";
 
 export async function POST(req) {
   try {

@@ -1,11 +1,11 @@
 import './globals.css';
-import Sidebar from '../components/Sidebar';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function GlobalLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="flex h-screen bg-gray-100">
-        <main className="flex-1 p-6 overflow-auto">{children}</main>
+      <body className="flex w-full h-full bg-gray-100">
+        {/* The children will take up the entire space */}
+        {children}
       </body>
     </html>
   );

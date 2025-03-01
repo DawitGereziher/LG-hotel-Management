@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../utils/db";
-import User from "../../models/User";
+import User from "../../models/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -26,7 +26,7 @@ export async function POST(req) {
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "1d" }
     );
 
     return NextResponse.json({

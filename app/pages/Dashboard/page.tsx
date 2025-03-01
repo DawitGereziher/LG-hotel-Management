@@ -1,20 +1,14 @@
 'use client';
 import { useState } from 'react';
-import Card from '../components/Card';
-import BookingStats from '../components/BookingStats';
-import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
+import Card from '../../../components/Card';
+import BookingStats from '../../../components/BookingStats';
 
 export default function Dashboard() {
   return (
     <div className="flex h-screen">
-      {/* Sidebar */}
-      <Sidebar />
       
       {/* Main Content */}
       <div className="flex-1 p-6 bg-gray-100">
-        {/* Header */}
-        <Header />
         
         {/* Dashboard Grid */}
         <div className="grid grid-cols-4 gap-4 mt-6">

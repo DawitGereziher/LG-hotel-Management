@@ -1,44 +1,89 @@
 "use client";
-import Link from 'next/link';
-import { Home, Calendar, Users, Mail, Settings } from 'lucide-react';
-import { useState } from 'react';
+
+import Link from "next/link";
+import { useState } from "react";
+import {
+  LayoutGrid,
+  Calendar,
+  Users,
+  Mail,
+  LogOut,
+  Settings,
+} from "lucide-react";
 
 const Sidebar = () => {
-
-const [selected, setSelected] = useState('home')
+  const [selected, setSelected] = useState("dashboard");
 
   return (
-    <aside className="w-64 bg-sidebar p-4">
-      <h1 className="text-xl font-bold mb-4">LG Hotel</h1>
-      <nav>
-        <ul className="space-y-3">
-          <li onClick={()=> setSelected('home')}>
-            <Link href="/" className={selected === 'home' ? `flex items-center gap-3 p-3 rounded-lg bg-primary`:`flex items-center gap-3 p-3 rounded-lg`}>
-              <Home size={20} /> Home
-            </Link>
-          </li>
-          <li onClick={()=> setSelected('rooms')}>
-            <Link href="/room" className={selected === 'rooms' ? `flex items-center gap-3 p-3 rounded-lg bg-primary`:`flex items-center gap-3 p-3 rounded-lg`}>
-              <Calendar size={20} /> Rooms
-            </Link>
-          </li>
-          <li onClick={()=> setSelected('guests')}>
-            <Link href="/staff" className={selected === 'staff' ? `flex items-center gap-3 p-3 rounded-lg bg-primary`:`flex items-center gap-3 p-3 rounded-lg`}>
-              <Users size={20} /> Staff
-            </Link>
-          </li>
-          <li onClick={()=> setSelected('messages')}>
-            <Link href="/messages" className={selected === 'messages' ? `flex items-center gap-3 p-3 rounded-lg bg-primary`:`flex items-center gap-3 p-3 rounded-lg`}>
-              <Mail size={20} /> Messages
-            </Link>
-          </li>
-          <li onClick={()=> setSelected('setting')}>
-            <Link href="/settings" className={selected === 'setting' ? `flex items-center gap-3 p-3 rounded-lg bg-primary`:`flex items-center gap-3 p-3 rounded-lg`}>
-              <Settings size={20} /> Settings
-            </Link>
-          </li>
-        </ul>
-      </nav>
+    <aside className="w-20 md:w-20 bg-gray text-black h-screen flex flex-col justify-between p-4">
+      {/* Top Section */}
+      <div>
+
+        {/* Navigation Menu */}
+        <nav>
+          <ul className="space-y-4">
+            <li onClick={() => setSelected("dashboard")}>
+              <Link
+                href="/"
+                className={`flex items-center gap-3 p-3 rounded-lg ${
+                  selected === "dashboard"
+                    ? "bg-blue-500"
+                    : "hover:bg-gray-700"
+                }`}
+              >
+                <LayoutGrid size={20} />
+              </Link>
+            </li>
+            <li onClick={() => setSelected("calendar")}>
+              <Link
+                href="/pages/reservation"
+                className={`flex items-center gap-3 p-3 rounded-lg ${
+                  selected === "calendar" ? "bg-blue-500" : "hover:bg-gray-700"
+                }`}
+              >
+                <Calendar size={20} />
+              </Link>
+            </li>
+            <li onClick={() => setSelected("staff")}>
+              <Link
+                href="/pages/staff"
+                className={`flex items-center gap-3 p-3 rounded-lg ${
+                  selected === "staff" ? "bg-blue-500" : "hover:bg-gray-700"
+                }`}
+              >
+                <Users size={20} />
+              </Link>
+            </li>
+            <li onClick={() => setSelected("messages")}>
+              <Link
+                href="/pages/room"
+                className={`flex items-center gap-3 p-3 rounded-lg ${
+                  selected === "messages" ? "bg-blue-500" : "hover:bg-gray-700"
+                }`}
+              >
+                <Mail size={20} />
+              </Link>
+            </li>
+            <li onClick={() => setSelected("settings")}>
+              <Link
+                href="/pages/settings"
+                className={`flex items-center gap-3 p-3 rounded-lg ${
+                  selected === "settings" ? "bg-blue-500" : "hover:bg-gray-700"
+                }`}
+              >
+                <Settings size={20} /> 
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Bottom Section - Logout */}
+      <div>
+        <button className="flex items-center gap-3 p-3 rounded-lg hover:bg-red-600 w-full">
+          <LogOut size={20} />
+        </button>
+      </div>
     </aside>
   );
 };
