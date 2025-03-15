@@ -16,10 +16,6 @@ export async function PUT(req) {
 
     const updates = await req.json(); // ✅ Parse request body
 
-    if (updates.password) {
-      return NextResponse.json({ error: "Password updates are not allowed here" }, { status: 400 });
-    }
-
     // Authenticate admin before proceeding
     const isAdmin = await authenticate(req);
     if (!isAdmin) {

@@ -6,36 +6,34 @@ import axios from "axios";
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [search, setSearch] = useState("");
-  const [editingId, setEditingId] = useState(null); // Track ID for editing
+  const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
     guestName: "",
     guestContact: "",
     guestAddress: "",
     guestIdNumber: "",
-    room: "",
+    room: [],
     checkInDate: "",
     checkOutDate: "",
     additionalServices: 0,
     amountPaid: 0,
   });
 
-  const API_URL = "http://localhost:5000/api/reservation"; // Change if needed
+  const API_URL = "http://localhost:3000/api/reservation";
 
-  // ✅ Fetch all reservations
   useEffect(() => {
     fetchReservations();
   }, []);
 
   const fetchReservations = async () => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axios.get(`${API_URL}/getAll`);
       setReservations(res.data);
     } catch (error) {
       console.error("Error fetching reservations:", error);
     }
   };
 
-  // ✅ Search reservations by guest name
   const handleSearch = async () => {
     try {
       const res = await axios.get(`${API_URL}/search?name=${search}`);
@@ -45,39 +43,33 @@ const Reservations = () => {
     }
   };
 
-  // ✅ Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // ✅ Create or update a reservation
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleCreate = async (e) => {
+    e.preventDefault(); 
     try {
-      if (editingId) {
-        await axios.put(`${API_URL}/update/${editingId}`, formData);
-      } else {
-        await axios.post(`${API_URL}/create`, formData);
-      }
+      await axios.post(`${API_URL}/create`, formData);
       fetchReservations();
-      setEditingId(null);
-      setFormData({
-        guestName: "",
-        guestContact: "",
-        guestAddress: "",
-        guestIdNumber: "",
-        room: "",
-        checkInDate: "",
-        checkOutDate: "",
-        additionalServices: 0,
-        amountPaid: 0,
-      });
+      resetForm();
     } catch (error) {
-      console.error("Error saving reservation:", error);
+      console.error("Error creating reservation:", error);
+    }
+  };
+  
+
+  const handleUpdate = async () => {
+    try {
+      await axios.put(`${API_URL}/update/${editingId}`, formData);
+      fetchReservations();
+      resetForm();
+    } catch (error) {
+      console.error("Error updating reservation:", error);
     }
   };
 
-  // ✅ Load data into form for editing
+
   const handleEdit = (reservation) => {
     setEditingId(reservation._id);
     setFormData({
@@ -93,7 +85,6 @@ const Reservations = () => {
     });
   };
 
-  // ✅ Delete a reservation
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL}/cancel/${id}`);
@@ -103,11 +94,24 @@ const Reservations = () => {
     }
   };
 
+  const resetForm = () => {
+    setEditingId(null);
+    setFormData({
+      guestName: "",
+      guestContact: "",
+      guestAddress: "",
+      guestIdNumber: "",
+      room: [],
+      checkInDate: "",
+      checkOutDate: "",
+      additionalServices: 0,
+      amountPaid: 0,
+    });
+  };
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Reservations</h1>
-
-      {/* 🔍 Search Field */}
       <div className="mb-4">
         <input
           type="text"
@@ -121,8 +125,7 @@ const Reservations = () => {
         </button>
       </div>
 
-      {/* 📝 Reservation Form */}
-      <form onSubmit={handleSubmit} className="border p-4 mb-4">
+      <form onSubmit={handleCreate} className="border p-4 mb-4">
         <h2 className="text-xl font-bold">{editingId ? "Edit" : "New"} Reservation</h2>
         <input type="text" name="guestName" placeholder="Guest Name" value={formData.guestName} onChange={handleChange} required className="border p-2 block w-full mb-2" />
         <input type="text" name="guestContact" placeholder="Contact" value={formData.guestContact} onChange={handleChange} required className="border p-2 block w-full mb-2" />
@@ -133,17 +136,10 @@ const Reservations = () => {
         <input type="date" name="checkOutDate" value={formData.checkOutDate} onChange={handleChange} required className="border p-2 block w-full mb-2" />
         <input type="number" name="additionalServices" placeholder="Additional Charges" value={formData.additionalServices} onChange={handleChange} className="border p-2 block w-full mb-2" />
         <input type="number" name="amountPaid" placeholder="Amount Paid" value={formData.amountPaid} onChange={handleChange} className="border p-2 block w-full mb-2" />
-        <button type="submit" className="bg-green-500 text-white px-4 py-2">
-          {editingId ? "Update" : "Create"} Reservation
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2"> Create Reservation
         </button>
-        {editingId && (
-          <button onClick={() => setEditingId(null)} type="button" className="bg-gray-500 text-white px-4 py-2 ml-2">
-            Cancel
-          </button>
-        )}
       </form>
 
-      {/* 📋 Reservation List */}
       <ul>
         {reservations.map((res) => (
           <li key={res._id} className="border p-4 mb-2">

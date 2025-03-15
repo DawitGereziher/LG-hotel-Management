@@ -87,7 +87,7 @@ export default function StaffManagement() {
 
     setLoading(true);
     try {
-      await axios.post(`/api/staff`, newStaff);
+      await axios.post(`/api/staff/add`, newStaff);
       fetchStaffList();
       setNewStaff({ name: "", email: "", phone: "", role: "", status: "active" });
       setError(null);

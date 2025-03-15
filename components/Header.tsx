@@ -5,15 +5,15 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between bg-white shadow-md px-6 py-3">
+    <header className="flex items-center justify-between bg-white shadow-md px-6 py-1">
       {/* Left Section */}
       <div className="flex items-center gap-4">
                 {/* Logo */}
                 <div className="flex justify-center md:justify-start mb-6">
-          <Image src="/logo.png" alt="Logo" width={40} height={40} />
+          <Image src="/logo.jpg" alt="Logo" width={40} height={40}/>
         </div>
         {/* Greeting */}
-        <h1 className="text-lg font-medium ">Good Morning Dawit 👋</h1>
+        <h1 className="text-lg font-medium ml-10">Good Morning Dawit 👋</h1>
       </div>
 
       {/* Right Section */}
@@ -36,7 +36,7 @@ export default function Header() {
 
         {/* Profile Avatar */}
         <div className="w-8 h-8 rounded-full overflow-hidden">
-          <Image src="/avatar.png" alt="Profile" width={32} height={32} />
+          <Image src="/avatar.jpg" alt="Profile" width={32} height={32} />
         </div>
       </div>
     </header>

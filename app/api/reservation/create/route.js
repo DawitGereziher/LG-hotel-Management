@@ -6,10 +6,11 @@ import { authenticate } from "../../middleware/auth";
 
 export async function POST(req) {
   try {
-    const body = await req.json(); // ✅ Parse request body
+    const body = await req.json(); 
+    /*
     const authResponse = await authenticate(req);
     if (authResponse.error) return NextResponse.json(authResponse, { status: 401 });
-
+*/
     await connectDB();
 
     const { roomId, guestName, guestContact, guestAddress, guestIdNumber, checkInDate, checkOutDate, additionalServices, amountPaid } = body;

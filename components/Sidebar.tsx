@@ -10,12 +10,20 @@ import {
   LogOut,
   Settings,
 } from "lucide-react";
+import axios from "axios";
 
 const Sidebar = () => {
   const [selected, setSelected] = useState("dashboard");
+  
+  const logout = () => {
+    localStorage.removeItem("token");
+    delete axios.defaults.headers.common["Authorization"];
+    window.location.href = "/login"; 
+    sessionStorage.clear();
+  };
 
   return (
-    <aside className="w-20 md:w-20 bg-gray text-black h-screen flex flex-col justify-between p-4">
+    <aside className="w-20 md:w-20 bg-white-900 text-black h-screen flex flex-col justify-between p-4">
       {/* Top Section */}
       <div>
 
@@ -24,7 +32,7 @@ const Sidebar = () => {
           <ul className="space-y-4">
             <li onClick={() => setSelected("dashboard")}>
               <Link
-                href="/"
+                href="/pages/Dashboard"
                 className={`flex items-center gap-3 p-3 rounded-lg ${
                   selected === "dashboard"
                     ? "bg-blue-500"
@@ -80,7 +88,7 @@ const Sidebar = () => {
 
       {/* Bottom Section - Logout */}
       <div>
-        <button className="flex items-center gap-3 p-3 rounded-lg hover:bg-red-600 w-full">
+        <button className="flex items-center gap-3 p-3 rounded-lg hover:bg-red-600 w-full" onClick={logout}>
           <LogOut size={20} />
         </button>
       </div>

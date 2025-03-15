@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "../../../utils/db";
 import Staff from "../../models/staff";
-import { authenticateAdmin } from "../../middleware/auth";
+import { authenticate } from "../../middleware/auth";
 
 export async function GET(req, { params }) {
   try {
@@ -16,7 +16,7 @@ export async function GET(req, { params }) {
     }
 
     // Authenticate admin user
-    const isAuthenticated = await authenticateAdmin(req);
+    const isAuthenticated = await authenticate(req);
     if (!isAuthenticated) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }

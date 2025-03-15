@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export async function authenticate(req) {
-  const token = req.headers.get("authorization")?.split(" ")[1]; // ✅ Use `req.headers.get()` for Next.js
+  const token = req.headers.get("authorization")?.split(" ")[1]; 
 
   if (!token) {
     return { success: false, error: "Unauthorized: No token provided" };

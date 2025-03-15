@@ -1,23 +1,16 @@
 import connectDB from "../../../utils/db";
-import Staff from "../../models/Staff";
-import { authenticate } from "../../middleware/auth";
+import Staff from "../../models/staff";
 import { NextResponse } from "next/server";
-
-
-
-import { NextResponse } from "next/server";
-import mongoose from "mongoose";
-import Staff from "@/models/Staff"; // Adjust path based on your project structure
-import dbConnect from "@/utils/dbConnect"; // Ensure you have a database connection utility
 
 export async function POST(req) {
-  await dbConnect(); // Ensure database connection
+  await connectDB(); // Ensure database connection
 
   try {
-    const { name, email, password, role, phone } = await req.json();
+    const body = await req.json(); // Correctly extract JSON from request
+    const { name, email, role, phone, status } = body;
 
     // Validate required fields
-    if (!name || !email || !password || !role || !phone) {
+    if (!name || !email || !role || !phone || !status) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 });
     }
 
@@ -31,13 +24,14 @@ export async function POST(req) {
     const newStaff = await Staff.create({
       name,
       email,
-      password, // Consider hashing passwords for security
       role,
       phone,
+      status
     });
 
     return NextResponse.json(newStaff, { status: 201 });
   } catch (error) {
+    console.error("Error adding staff:", error.message); // Log error before response
     return NextResponse.json({ error: "Failed to add staff", details: error.message }, { status: 500 });
   }
 }

@@ -8,7 +8,6 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    e.preventDefault();
     const checkAuth = async () => {
       const token = localStorage.getItem('token');
 
